@@ -62,7 +62,7 @@ AZURE_OPENAI_ENDPOINT="https://cog-<unique string>.openai.azure.com/"
 
 Alternatively you can [create an OpenAI resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesTextAnalytics) in the Azure portal to get your key and endpoint. After it deploys, click Go to resource and view the Endpoint value.  You will also need to deploy a model, e.g. with name `completion` and model `gpt-4o`.
 
-### Create local.settings.json (should be in the same folder as host.json). This will be created if you run azd deploy
+### Create local.settings.json (should be in the same folder as host.json). This will be created if you run azd provision or azd up
 ```json
 {
   "IsEncrypted": false,
