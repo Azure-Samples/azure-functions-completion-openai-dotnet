@@ -25,9 +25,6 @@ param storageAccountName string = ''
 param vNetName string = ''
 param disableLocalAuth bool = true
 
-@allowed([ 'consumption', 'flexconsumption' ])
-param azFunctionHostingPlanType string = 'flexconsumption'
-
 param openAiServiceName string = ''
  
 param openAiSkuName string
@@ -40,9 +37,9 @@ param chatGptDeploymentVersion string = ''
 param chatGptDeploymentCapacity int = 0
 
 var chatGpt = {
-  modelName: !empty(chatGptModelName) ? chatGptModelName : startsWith(openAiHost, 'azure') ? 'gpt4' : 'gpt4'
+  modelName: !empty(chatGptModelName) ? chatGptModelName : startsWith(openAiHost, 'azure') ? 'gpt-4o' : 'gpt-4o'
   deploymentName: !empty(chatGptDeploymentName) ? chatGptDeploymentName : 'completion'
-  deploymentVersion: !empty(chatGptDeploymentVersion) ? chatGptDeploymentVersion : '0613'
+  deploymentVersion: !empty(chatGptDeploymentVersion) ? chatGptDeploymentVersion : '2024-08-06'
   deploymentCapacity: chatGptDeploymentCapacity != 0 ? chatGptDeploymentCapacity : 40
 }
 
