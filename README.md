@@ -39,6 +39,21 @@ Run the following command to download the project code
 azd init -t https://github.com/Azure-Samples/azure-functions-completion-openai-dotnet
 ```
 
+Enable scripts to create local settings file after deployment
+Mac/Linux:
+```bash
+chmod +x ./infra/scripts/*.sh 
+```
+Windows:
+```Powershell
+set-executionpolicy remotesigned
+```
+Run the follow command to provision resoruces in Azure
+```bash
+azd provision
+```
+
+
 Once you have your Azure subscription, run the following in a new terminal window to create Azure OpenAI and other resources needed:
 
 ```bash
@@ -52,7 +67,7 @@ AZURE_OPENAI_ENDPOINT="https://cog-<unique string>.openai.azure.com/"
 
 Alternatively you can [create an OpenAI resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesTextAnalytics) in the Azure portal to get your key and endpoint. After it deploys, click Go to resource and view the Endpoint value.  You will also need to deploy a model, e.g. with name `completion` and model `gpt-35-turbo`.
 
-### Create local.settings.json (should be in the same folder as host.json)
+### Create local.settings.json (should be in the same folder as host.json). This will be created if you run azd deploy
 ```json
 {
   "IsEncrypted": false,
