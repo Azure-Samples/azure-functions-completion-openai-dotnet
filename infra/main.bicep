@@ -31,16 +31,16 @@ param openAiSkuName string
 @allowed([ 'azure', 'openai', 'azure_custom' ])
 param openAiHost string // Set in main.parameters.json
 
-param chatGptModelName string = ''
-param chatGptDeploymentName string = ''
-param chatGptDeploymentVersion string = ''
-param chatGptDeploymentCapacity int = 0
+param chatModelName string = ''
+param chatDeploymentName string = ''
+param chatDeploymentVersion string = ''
+param chatDeploymentCapacity int = 0
 
-var chatGpt = {
-  modelName: !empty(chatGptModelName) ? chatGptModelName : startsWith(openAiHost, 'azure') ? 'gpt-4o' : 'gpt-4o'
-  deploymentName: !empty(chatGptDeploymentName) ? chatGptDeploymentName : 'completion'
-  deploymentVersion: !empty(chatGptDeploymentVersion) ? chatGptDeploymentVersion : '2024-08-06'
-  deploymentCapacity: chatGptDeploymentCapacity != 0 ? chatGptDeploymentCapacity : 40
+var chatModel = {
+  modelName: !empty(chatModelName) ? chatModelName : startsWith(openAiHost, 'azure') ? 'gpt-4o' : 'gpt-4o'
+  deploymentName: !empty(chatDeploymentName) ? chatDeploymentName : 'completion'
+  deploymentVersion: !empty(chatDeploymentVersion) ? chatDeploymentVersion : '2024-08-06'
+  deploymentCapacity: chatDeploymentCapacity != 0 ? chatDeploymentCapacity : 40
 }
 
 @description('Id of the user or app to assign application roles')
@@ -101,7 +101,7 @@ module api './app/api.bicep' = {
     identityId: apiUserAssignedIdentity.outputs.identityId
     identityClientId: apiUserAssignedIdentity.outputs.identityClientId
     appSettings: {
-      CHAT_MODEL_DEPLOYMENT_NAME: chatGpt.deploymentName
+      CHAT_MODEL_DEPLOYMENT_NAME: chatModel.deploymentName
     }
     virtualNetworkSubnetId: skipVnet ? '' : serviceVirtualNetwork.outputs.appSubnetID
     aiServiceUrl: ai.outputs.endpoint
@@ -121,12 +121,12 @@ module ai 'core/ai/openai.bicep' = {
     }
     deployments: [
       {
-        name: chatGpt.deploymentName
-        capacity: chatGpt.deploymentCapacity
+        name: chatModel.deploymentName
+        capacity: chatModel.deploymentCapacity
         model: {
           format: 'OpenAI'
-          name: chatGpt.modelName
-          version: chatGpt.deploymentVersion
+          name: chatModel.modelName
+          version: chatModel.deploymentVersion
         }
         scaleSettings: {
           scaleType: 'Standard'

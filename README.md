@@ -25,7 +25,7 @@ You can learn more about the OpenAI trigger and bindings extension in the [GitHu
 
 ## Prerequisites
 
-* [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/6.0) or greater (Visual Studio 2022 recommended)
+* [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or greater (Visual Studio 2022 recommended)
 * [Azure Functions Core Tools v4.x](https://learn.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Cnode%2Cportal%2Cbash)
 * [Azure OpenAI resource](https://learn.microsoft.com/azure/openai/overview)
 * [Azurite](https://github.com/Azure/Azurite)
@@ -48,11 +48,6 @@ Windows:
 ```Powershell
 set-executionpolicy remotesigned
 ```
-Run the follow command to provision resoruces in Azure
-```bash
-azd provision
-```
-
 
 Once you have your Azure subscription, run the following in a new terminal window to create Azure OpenAI and other resources needed:
 
@@ -65,9 +60,9 @@ Take note of the value of `AZURE_OPENAI_ENDPOINT` which can be found in `./.azur
 AZURE_OPENAI_ENDPOINT="https://cog-<unique string>.openai.azure.com/"
 ```
 
-Alternatively you can [create an OpenAI resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesTextAnalytics) in the Azure portal to get your key and endpoint. After it deploys, click Go to resource and view the Endpoint value.  You will also need to deploy a model, e.g. with name `completion` and model `gpt-35-turbo`.
+Alternatively you can [create an OpenAI resource](https://portal.azure.com/#create/Microsoft.CognitiveServicesTextAnalytics) in the Azure portal to get your key and endpoint. After it deploys, click Go to resource and view the Endpoint value.  You will also need to deploy a model, e.g. with name `completion` and model `gpt-4o`.
 
-### Create local.settings.json (should be in the same folder as host.json). This will be created if you run azd provision
+### Create local.settings.json (should be in the same folder as host.json). This will be created if you run azd deploy
 ```json
 {
   "IsEncrypted": false,
@@ -82,7 +77,7 @@ Alternatively you can [create an OpenAI resource](https://portal.azure.com/#crea
 
 ### Permissions
 #### Add the following permissions to the Azure OpenAI resource:
-<b>Cognitive Services OpenAI User</b> - Add your account (contoso.microsoft.com) to the OpenAI resource if you did not create the OpenAI resource to test locally and the Azure Function App's Managed Identity when running in Azure. If you used `azd provision` this step is already done - your logged in user and your function's managed idenitty already have permissions granted.  
+<b>Cognitive Services User</b> - Add your account to the OpenAI resource if you did not create the OpenAI resource to test locally and the Azure Function App's Managed Identity when running in Azure. If you used `azd provision` this step is already done - your logged in user and your function's managed idenitty already have permissions granted.  
 
 ## Run your app using Visual Studio Code
 
