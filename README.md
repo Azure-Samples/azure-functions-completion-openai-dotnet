@@ -1,7 +1,7 @@
 <!--
 ---
-name: Azure Function using OpenAI TextCompletion input binding
-description: Azure Function using OpenAI TextCompletion input binding to send content to Azure OpenAI and get a result
+name: .NET Azure Function using OpenAI TextCompletion input binding
+description: Azure Function in .NET using OpenAI TextCompletion input binding to send content to Azure OpenAI and get a result
 page_type: sample
 products:
 - azure-functions
